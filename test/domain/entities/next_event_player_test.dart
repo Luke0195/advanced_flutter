@@ -31,10 +31,11 @@ class NextEventPlayer {
   }) => NextEventPlayer._(id: id, name: name, isConfirmed: isConfirmed, initials: _getInitials(name), photo: photo, position: position, confirmationDate: confirmationDate, );
 
   static String _getInitials(String name){
-    final  names = name.split(' ');
+    final  names = name.toUpperCase().split(' ');
     final firstChar = names.first[0];
-    final lastChar = names.last[names.length == 1 ? 1 : 0];
-    return '$firstChar$lastChar'.toUpperCase();
+    final lastChar = names.last.split('').elementAtOrNull(names.length == 1 ? 1 : 0) ?? '';
+    
+    return '$firstChar$lastChar';
   }
 }
 
@@ -49,5 +50,13 @@ void main() {
 
   test('should returns the first letters of the first name', (){
     expect(initialsOf('lucas'), equals('LU'));
+  });
+
+  test('should convert to uppercase', (){
+    expect(initialsOf('lucas'), equals('LU'));
+  });
+
+  test('should returns an first letter if name has only one letter', (){
+    expect(initialsOf('l'), equals('L'));
   });
 }
