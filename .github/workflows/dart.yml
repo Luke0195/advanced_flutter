@@ -1,9 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Dart
+name: Flutter CI
 
 on:
   push:
@@ -17,13 +12,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.1' 
 
       - name: Install dependencies
         run: flutter pub get
+
       - name: Analyze project source
         run: flutter analyze
+
       - name: Format Code 
         run: dart format .
+
       - name: Run tests
         run: flutter test
