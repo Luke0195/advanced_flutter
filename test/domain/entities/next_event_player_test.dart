@@ -42,12 +42,12 @@ void main() {
   
   String initialsOf(String name) =>  NextEventPlayer(id: '',name: name ,isConfirmed: true).initials;
   test('should returns the first letter of the first and last name', () {
-    expect(initialsOf('Lucas Santos'),equals('LS'));
-    expect(initialsOf('Paulo Lima'), equals('PL'));
-    expect(initialsOf('Ingrid Mota da Silva'),equals('IS'));
+    expect(initialsOf('lucas santos'),equals('LS'));
+    expect(initialsOf('paulo lima'), equals('PL'));
+    expect(initialsOf('ingrid mota da silva'),equals('IS'));
   });
 
-  test('should return the first letters of the first name', (){
-    expect(initialsOf('Lucas'), equals('LU'));
+  test('should returns the first letters of the first name', (){
+    expect(initialsOf('lucas'), equals('LU'));
   });
 }
