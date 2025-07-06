@@ -31,8 +31,8 @@ class NextEventPlayer {
   }) => NextEventPlayer._(id: id, name: name, isConfirmed: isConfirmed, initials: _getInitials(name), photo: photo, position: position, confirmationDate: confirmationDate, );
 
   static String _getInitials(String name){
-    final  names = name.toUpperCase().split(' ');
-    final firstChar = names.first[0];
+    final  names = name.toUpperCase().trim().split(' ');
+    final firstChar = names.first.split('').firstOrNull ?? '-';
     final lastChar = names.last.split('').elementAtOrNull(names.length == 1 ? 1 : 0) ?? '';
     
     return '$firstChar$lastChar';
@@ -58,5 +58,18 @@ void main() {
 
   test('should returns an first letter if name has only one letter', (){
     expect(initialsOf('l'), equals('L'));
+  });
+
+  test('should return "-" when name is empty', ()async{
+    expect(initialsOf(''), equals('-'));
+  });
+
+  test('should ignore extra withspaces', (){
+    expect(initialsOf(' Lucas Santos'), equals('LS'));
+    expect(initialsOf('Lucas Santos '), equals('LS'));
+    expect(initialsOf(' Lucas Santos '), equals('LS'));
+    expect(initialsOf('R '), equals('R'));
+    expect(initialsOf(' R '), equals('R'));
+    expect(initialsOf('   '), equals('-'));
   });
 }
